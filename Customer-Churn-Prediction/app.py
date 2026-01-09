@@ -50,7 +50,7 @@ def chat_api():
         return jsonify({"response": response_text})
 
     cohere_api_url = "https://api.cohere.ai/v1/chat"
-    cohere_api_key = "afs34b7yzpJHa9B6X3mPmJQVEmHVvQi2Y8UPbKen"
+    cohere_api_key = "YOUR_COHERE_API_KEY_HERE"
 
     headers = {
         "Authorization": f"Bearer {cohere_api_key}",
