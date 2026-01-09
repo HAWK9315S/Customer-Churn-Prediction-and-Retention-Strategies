@@ -46,6 +46,22 @@ This project relies on several powerful external Python libraries to function. P
 
 Without installing these, the application will crash immediately with `ModuleNotFoundError`.
 
+## 🔑 API Configuration (Important!)
+This project uses the **Cohere API** for the chatbot functionality. For security reasons, the API key is **not included** in the code. You must use your own free key.
+
+1. **Get a Free API Key:**
+   - Sign up at [Cohere.ai](https://dashboard.cohere.com/welcome/register).
+   - Go to your dashboard and generate a Trial API Key.
+
+2. **Add Key to Project:**
+   - Open `app.py` in your code editor.
+   - Find the line: `cohere_api_key = "YOUR_COHERE_API_KEY_HERE"`
+   - Replace `"YOUR_COHERE_API_KEY_HERE"` with your actual key.
+   
+   *Example:*
+   ```python
+   cohere_api_key = "MszTwd..." 
+   
 ### ⚙️ How to Run the Project
 
 1. **Clone the repository**
