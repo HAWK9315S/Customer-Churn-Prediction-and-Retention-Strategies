@@ -1,0 +1,10 @@
+flask
+pandas
+numpy
+scikit-learn
+imbalanced-learn
+xgboost
+seaborn
+matplotlib
+requests
+cohere

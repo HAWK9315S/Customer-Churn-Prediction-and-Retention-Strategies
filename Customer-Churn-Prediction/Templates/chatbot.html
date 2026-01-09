@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Churn Prediction AI Chatbot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F9FAFB;
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header {
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #7C3AED;
+    }
+    nav.nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav.nav-links a {
+      font-weight: 500;
+      padding: 0.5rem;
+      transition: color 0.2s;
+    }
+    nav.nav-links a:hover {
+      color: #7C3AED;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin: 1rem auto 2rem;
+      background: #ffffff;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      padding: 1rem 1.5rem;
+      overflow: hidden;
+    }
+    .chat-container {
+      flex: 10;
+      overflow-y: auto;
+      padding-right: 1rem;
+      margin-bottom: 1rem;
+      min-height: 400px;
+      width: 1100px;
+    }
+    .message {
+      max-width: 90%;
+      margin-bottom: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      line-height: 1.4;
+      font-size: 1.1rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .message.user {
+      background-color: #7C3AED;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+      max-width: 80%;
+      margin-left: auto;
+    }
+    .message.bot {
+      background-color: #EDE9FE;
+      color: #111827;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+      max-width: 80%;
+      margin-right: auto;
+    }
+    form.chat-input-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+    textarea.chat-input {
+      flex: 1;
+      resize: none;
+      padding: 0.75rem 1rem;
+      border: 1px solid #E5E7EB;
+      border-radius: 9999px;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.2s;
+      height: 3rem;
+    }
+    textarea.chat-input:focus {
+      border-color: #7C3AED;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+    }
+    button.send-button {
+      background-color: #7C3AED;
+      border: none;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 600;
+      padding: 0 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-size: 1rem;
+    }
+    button.send-button:hover {
+      background-color: #6D28D9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Churnly AI Chatbot</div>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/home">Return</a>
+    </nav>
+  </header>
+  <main>
+    <div class="chat-container" id="chat-container" aria-live="polite" aria-label="Chat messages">
+      <!-- Chat messages will appear here -->
+    </div>
+    <form id="chat-form" class="chat-input-form" autocomplete="off">
+      <textarea id="chat-input" class="chat-input" placeholder="Ask about customer churn prediction..." rows="1" required></textarea>
+      <button type="submit" class="send-button">Send</button>
+    </form>
+  </main>
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+
+    function appendMessage(content, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', sender);
+      messageDiv.textContent = content;
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userMessage = chatInput.value.trim();
+      if (!userMessage) return;
+      appendMessage(userMessage, 'user');
+      chatInput.value = '';
+      // Placeholder bot response for now
+      appendMessage('Processing your query about customer churn prediction...', 'bot');
+
+      // Call backend API for customer churn prediction AI
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: userMessage })
+        });
+        const data = await response.json();
+        // Remove the "Processing..." message
+        const processingMsg = chatContainer.querySelector('.message.bot:last-child');
+        if (processingMsg && processingMsg.textContent === 'Processing your query about customer churn prediction...') {
+          processingMsg.remove();
+        }
+        appendMessage(data.response, 'bot');
+      } catch (error) {
+        // Remove the "Processing..." message
+        const processingMsg = chatContainer.querySelector('.message.bot:last-child');
+        if (processingMsg && processingMsg.textContent === 'Processing your query about customer churn prediction...') {
+          processingMsg.remove();
+        }
+        appendMessage('Sorry, there was an error processing your request.', 'bot');
+      }
+    });
+
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        chatForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+    });
+
+    const csvUpload = document.getElementById('csv-upload');
+    const fileDropdown = document.getElementById('file-dropdown');
+    const csvFileOptions = document.getElementById('csv-file-options');
+    const runAnalysisBtn = document.getElementById('run-analysis');
+
+    // Show file input when user clicks on textarea (optional)
+    chatInput.addEventListener('focus', () => {
+      // Optionally, you can show the file upload input here or add a button to trigger it
+    });
+
+    // Add a button or event to trigger file upload dialog
+    // Remove the F2 key trigger for file upload to avoid confusion
+    // Instead, add a visible button to trigger file upload
+
+    // Remove the upload button creation and event listener to fully remove upload button
+    // const uploadButton = document.createElement('button');
+    // uploadButton.textContent = 'Upload CSV';
+    // uploadButton.type = 'button';
+    // uploadButton.style.marginRight = '0.5rem';
+    // uploadButton.classList.add('send-button');
+    // chatForm.insertBefore(uploadButton, chatInput);
+
+    // uploadButton.addEventListener('click', () => {
+    //   csvUpload.click();
+    // });
+
+    csvUpload.addEventListener('change', () => {
+      if (csvUpload.files.length > 0) {
+        fileDropdown.style.display = 'block';
+        runAnalysisBtn.disabled = false;
+      } else {
+        fileDropdown.style.display = 'none';
+        runAnalysisBtn.disabled = true;
+      }
+    });
+
+    runAnalysisBtn.addEventListener('click', async () => {
+      const selectedOption = csvFileOptions.value;
+      if (!selectedOption) {
+        alert('Please select an analysis option.');
+        return;
+      }
+      if (csvUpload.files.length === 0) {
+        alert('Please upload a CSV file first.');
+        return;
+      }
+
+      const file = csvUpload.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('analysis_type', selectedOption);
+
+      appendMessage(`Uploaded file: ${file.name}`, 'user');
+      appendMessage('Running analysis...', 'bot');
+
+      try {
+        const response = await fetch('/api/upload-csv', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+        // Remove the "Running analysis..." message
+        const processingMsg = chatContainer.querySelector('.message.bot:last-child');
+        if (processingMsg && processingMsg.textContent === 'Running analysis...') {
+          processingMsg.remove();
+        }
+        appendMessage(data.result || 'No result returned.', 'bot');
+      } catch (error) {
+        // Remove the "Running analysis..." message
+        const processingMsg = chatContainer.querySelector('.message.bot:last-child');
+        if (processingMsg && processingMsg.textContent === 'Running analysis...') {
+          processingMsg.remove();
+        }
+        appendMessage('Sorry, there was an error processing your request.', 'bot');
+      }
+    });
+  </script>
+</body>
+</html>

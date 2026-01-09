@@ -1,0 +1,133 @@
+<body>
+<!-- hero.html -->
+<section class="hero">
+  <div class="container hero__container">
+    <div class="hero__content">
+      <h1 class="hero__heading">Churnly helps b2b saas companies burn churn</h1>
+      <p class="hero__text">We know how many customers you’re about to lose. Do you?</p>
+<button class="hero__button" type="button">Find Out HERE!</button>
+
+<script>
+  document.querySelector('.hero__button').addEventListener('click', function() {
+    window.location.href = '/home';
+  });
+</script>
+    </div>
+    <div class="hero__visual">
+      <img
+        class="hero__image"
+        src="static/assets/hero-image.png"
+        alt="Vector-style mockup of a dashboard with charts and KPI tiles"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+
+
+  /* Base Typography & Palette */
+  .hero {
+    background-color: #ffffff;
+    color: #111827;
+    padding: 5rem 0;
+  }
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  @media (min-width: 640px) {
+    .container {
+      padding: 0 1.5rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Layout */
+  .hero__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .hero__container {
+      flex-direction: row;
+      text-align: left;
+      justify-content: space-between;
+    }
+  }
+
+  /* Content */
+  .hero__heading {
+    font-family: 'a Area Kilometer 50';
+    font-size: 4rem;            /* 48px */
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .hero__text {
+    font-family: 'Alex Brush', sans-serif;
+    font-size: 3rem;            /* 16px */
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    color: #374151;
+  }
+
+  /* Button */
+  .hero__button {
+    display: inline-block;
+    padding: 1.25rem 2.5rem;
+    font-size: 1.25rem;         /* 20px */
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background-color: #7C3AED;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .hero__button:hover,
+  .hero__button:focus {
+    background-color: #6D28D9;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+  }
+
+  /* Visuals */
+  .hero__visual {
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .hero__shape {
+    position: absolute;
+    top: -1.25rem;
+    left: -1.25rem;
+    z-index: 0;
+    width: 120%;
+  }
+  .hero__image {
+    position: relative;
+    z-index: 1;
+    width: 120%;
+    height: auto;
+  }
+</style>
+</body>
