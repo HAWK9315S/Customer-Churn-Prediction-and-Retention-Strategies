@@ -16,7 +16,7 @@ This project was a collaborative effort by our team 'PU_BDA19':
 * **[Jaiswal Vaibhav Rohitbhai](https://github.com/VRJ1718)** - *Data Analyst / Data Collection / Reseach Paper Publication*
 * **[Sane Harsh Balkrishna](https://github.com/HAWK9315S)** - *Data Analyst / Documentation / Frontend Developement*
 * **[Ashish Thomas John](https://github.com/AJohn200408)** - *Data Analyst / Data Cleaning and Transformation / Model Building and Evaluation*
-* **[Adithya Vinod]()** - *Data Analyst / Exploratory Data Analysis / Reseach Paper Publication*
+* **[Adithya Vinod](https://github.com/hitAgit09)** - *Data Analyst / Exploratory Data Analysis / Reseach Paper Publication*
 
 ## 📂 Repository Structure
 The project is organized into the following directories for clarity:
